@@ -28,8 +28,10 @@ class HomeController extends Controller
 
     public function login(Request $request, User $user)
     {
-        $attributes = $request->all();
 
+        $this->validate($request, $user::$rules);
+
+        $attributes = $request->all();
         $attributes['ip_address'] = $request->getClientIp();
 
         $user->fill($attributes);

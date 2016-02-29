@@ -11,6 +11,12 @@ namespace App\Models;
 class User
 {
 
+    public static $rules = [
+        'firstname' => 'required',
+        'lastname' => 'required',
+        'email' => 'required',
+    ];
+
     public $firstname;
     public $lastname;
     public $email;
