@@ -14,7 +14,9 @@ var AJAX = {
 
         Quiz.Questions = resp;
 
-        ProgressBar.setTotalCount(Quiz.Questions.length)
+        ProgressBar.setTotalCount(Quiz.Questions.length);
+
+        QUESTION.render();
     }
 };
 
@@ -27,14 +29,19 @@ var HTML = {
     NextQuestionButtonId: '#next-question-btn',
     PrevQuestionButtonId: '#prev-question-btn',
 
-    QuestionTextId: "#question-text"
+    QuestionTextId: "#question-text",
+    AnswersContainerId: "#answers-container",
 
 };
 
 var ProgressBar = {
     progress : 0,
+
     $progressBar : $(HTML.ProgressBarId),
+
     $questionTotalCount : $(HTML.QuestionTotalCountId),
+
+    $questionCurrentNumber : $(HTML.QuestionCurrentNumberId),
 
     setProgress : function (value) {
         this.progress = value;
@@ -50,6 +57,7 @@ var ProgressBar = {
 
     setTotalCount : function(count) {
         this.$questionTotalCount.text(count);
+        this.setProgress(this.getStep());
     },
     
     getStep : function () {
@@ -71,17 +79,42 @@ var ProgressBar = {
 
         this.setProgress(currProgress - step);
     },
+
+    setCurrentQuestionNumber : function (currQuestionNumber) {
+        this.$questionCurrentNumber.text(currQuestionNumber);
+    }
 };
 
 
 var CONTROLS = {
+
+    render : function () {
+
+        return 0;
+    },
+
     nextQuestion : function () {
         ProgressBar.stepForward();
+        Quiz.current++;
+        //this.someFunction();
+        ProgressBar.setCurrentQuestionNumber(Quiz.current);
+        QUESTION.render();
     },
 
     prevQuestion : function () {
         ProgressBar.stepBackward();
+        Quiz.current--;
+
+        ProgressBar.setCurrentQuestionNumber(Quiz.current);
+        QUESTION.render();
+
     },
+
+    someFunction : function () {
+        alert('fdsafd');
+    },
+
+
 };
 
 $(HTML.PrevQuestionButtonId).click(CONTROLS.prevQuestion);
@@ -90,9 +123,24 @@ $(HTML.NextQuestionButtonId).click(CONTROLS.nextQuestion);
 
 var QUESTION = {
 
-    makeQuestion : function () {
-        
-    }
+    $questionText : $(HTML.QuestionTextId),
+
+    $answersContainer : $(HTML.AnswersContainerId),
+
+    makeQuestion : function (question) {
+        this.$questionText.text(question.question);
+
+        for (answerId in question.answers) {
+            this.$answersContainer.append(ANSWERS.makeHtml(answerId, question.answers[answerId]));
+        }
+    },
+
+    render : function () {
+        this.$answersContainer.empty();
+
+        QUESTION.makeQuestion(Quiz.Questions[Quiz.current - 1]);
+
+    },
 };
 
 var ANSWERS = {
