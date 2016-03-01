@@ -21,9 +21,11 @@ class Question
         for($i = 0; $i < 10; $i++) {
             $data[] = [
                 'question' => 'Wie hoch darf ich mit einem Quadrocopter fliegen?',
-                'answer1' => '10m',
-                'answer2' => '50m',
-                'answer3' => '100m',
+                'answers' => [
+                    'answer1' => '10m',
+                    'answer2' => '50m',
+                    'answer3' => '100m',
+                ],
                 'right_answer' => '10m',
             ];
         }

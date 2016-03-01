@@ -15,11 +15,12 @@ class HomeController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Question $question, User $user)
+    public function index(Request $request, User $user)
     {
 
 //        var_dump($question->getAll());
-//        var_dump($request->getClientIp());
+//        var_dump($request->getClientIp());r
+
 
         return view('home.homeIndex',
             compact('user')

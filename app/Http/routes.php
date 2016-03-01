@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,16 +24,16 @@ Route::get('/', 'HomeController@index');
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    //
-});
 
 Route::group(['middleware' => 'web'], function () {
-    Route::auth();
+    Route::get('/', 'HomeController@index');
+
+//    Route::auth();
 
     Route::get('/home', 'HomeController@index');
     Route::post('/home', 'HomeController@login');
 
     Route::get('/question', 'QuestionController@index');
+    Route::get('/question/all', 'QuestionController@getAllQuestions');
     Route::get('/question/success', 'QuestionController@success');
 });
