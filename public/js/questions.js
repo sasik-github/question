@@ -5,6 +5,7 @@
 var Quiz = {
     QUESTION_URL: '/question/all',
     Questions: [],
+    current: 1,
 };
 
 var AJAX = {
@@ -25,6 +26,8 @@ var HTML = {
 
     NextQuestionButtonId: '#next-question-btn',
     PrevQuestionButtonId: '#prev-question-btn',
+
+    QuestionTextId: "#question-text"
 
 };
 
@@ -70,6 +73,7 @@ var ProgressBar = {
     },
 };
 
+
 var CONTROLS = {
     nextQuestion : function () {
         ProgressBar.stepForward();
@@ -80,10 +84,31 @@ var CONTROLS = {
     },
 };
 
-
-
 $(HTML.PrevQuestionButtonId).click(CONTROLS.prevQuestion);
 $(HTML.NextQuestionButtonId).click(CONTROLS.nextQuestion);
+
+
+var QUESTION = {
+
+    makeQuestion : function () {
+        
+    }
+};
+
+var ANSWERS = {
+    
+    makeHtml : function (answerId, answerText) {
+        var html = '<div class="form-group">'  +
+                 '<div class="col-sm-offset-2 col-sm-10">' +
+                    '<div class="radio">' +
+                        '<h3><input id="id_' + answerId + '" type="radio" name="optionsRadios" value="option1" checked><label for="id_' + answerId + '">' + answerText + '</label></h3>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+
+        return html;
+    }
+}
 
 function getQuestions() {
     var url = Quiz.QUESTION_URL;

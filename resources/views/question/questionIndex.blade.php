@@ -11,7 +11,7 @@ slide-2.jpg
     <div class="page-header">
         <h1>Frage <span id="question-current-number">1</span> von <span id="question-count">XX</span></h1>
         <div class="progress">
-            <div id="progress-bar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">
+            <div id="progress-bar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
                 <span class="sr-only" id="progress-bar-label">10% Complete</span>
             </div>
         </div>
@@ -22,10 +22,10 @@ slide-2.jpg
         <div class="col-md-10">
 
             <div class="col-sm-offset-2 col-sm-10">
-                <h2>Wie hoch darf ich mit meinem Quadrocopter fliegen?</h2>
+                <h2 id="question-text">Wie hoch darf ich mit meinem Quadrocopter fliegen?</h2>
             </div>
 
-            <form class="form-horizontal">
+            <div id="answers-box">
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="radio">
@@ -49,7 +49,8 @@ slide-2.jpg
                         </div>
                     </div>
                 </div>
-
+            </div>
+            </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <a id="prev-question-btn" type="submit" class="btn btn-default">zurück zur vorherigen Frage</a>
