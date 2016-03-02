@@ -19,7 +19,7 @@ class Question
         $data = [];
 
         for($i = 0; $i < 10; $i++) {
-            $rightAnswer = rand(1, 3);
+            $rightAnswer = 1; #rand(1, 3);
             $data[] = [
                 'question' => 'Wie hoch darf ich mit einem Quadrocopter fliegen? ' . rand(0, 1000),
                 'answers' => [
