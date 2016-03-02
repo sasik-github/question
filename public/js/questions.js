@@ -88,17 +88,24 @@ var ProgressBar = {
 
 var CONTROLS = {
 
+    $prevButton : $(HTML.PrevQuestionButtonId),
+
+    $nextButton : $(HTML.NextQuestionButtonId),
+
     render : function () {
 
         return 0;
     },
 
     nextQuestion : function () {
+
         ProgressBar.stepForward();
         Quiz.current++;
+
         //this.someFunction();
         ProgressBar.setCurrentQuestionNumber(Quiz.current);
         QUESTION.render();
+
     },
 
     prevQuestion : function () {
@@ -108,18 +115,23 @@ var CONTROLS = {
         ProgressBar.setCurrentQuestionNumber(Quiz.current);
         QUESTION.render();
 
+
+
     },
 
-    someFunction : function () {
-        alert('fdsafd');
-    },
+    setDisabledButton : function ($button, val) {
+        if (val) {
+            $button.addClass('disabled');
+        } else {
+            $button.removeClass('disabled');
+        }
 
+    }
 
 };
 
-$(HTML.PrevQuestionButtonId).click(CONTROLS.prevQuestion);
-$(HTML.NextQuestionButtonId).click(CONTROLS.nextQuestion);
-
+CONTROLS.$prevButton.click(CONTROLS.prevQuestion);
+CONTROLS.$nextButton.click(CONTROLS.nextQuestion);
 
 var QUESTION = {
 
@@ -138,7 +150,23 @@ var QUESTION = {
     render : function () {
         this.$answersContainer.empty();
 
+
         QUESTION.makeQuestion(Quiz.Questions[Quiz.current - 1]);
+
+        CONTROLS.setDisabledButton(CONTROLS.$prevButton, false);
+        CONTROLS.setDisabledButton(CONTROLS.$nextButton, false);
+
+        if (Quiz.current <= 1) {
+            CONTROLS.setDisabledButton(CONTROLS.$prevButton, true);
+            //CONTROLS.setDisabledButton(CONTROLS.$nextButton, false);
+            return;
+        }
+
+        if (Quiz.current >= Quiz.Questions.length) {
+            CONTROLS.setDisabledButton(CONTROLS.$nextButton, true);
+            //CONTROLS.setDisabledButton(CONTROLS.$prevButton, false);
+            return;
+        }
 
     },
 };
