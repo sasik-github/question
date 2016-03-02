@@ -27,10 +27,47 @@ class QuestionController extends Controller
         return $question->getAll();
     }
 
-    public function success(Request $request, User $user)
+    public function success(Request $request, User $user, Question $question)
     {
-        return view('question.questionSuccess',
-            compact('user')
+        $answers = $request->get('answers', []);
+        var_dump($answers);
+        $questions = $question->getAll();
+        $rightAnsweredCount = $this->checkAnswers($questions, $answers);
+
+        $totalCount = count($questions);
+//        $rightAnsweredCount = count($rightAnswered);
+
+        if ($totalCount == $rightAnsweredCount) {
+            return view('question.questionSuccess');
+        } else {
+            return view('question.questionFailure',
+                compact('totalCount', 'rightAnsweredCount')
             );
+        }
+    }
+
+    /**
+     * @param $questions
+     * @param $answers
+     * @return int
+     */
+    private function checkAnswers($questions, $answers) {
+
+        $rightAnswered = 0;
+//        var_dump([
+//            $questions,
+//            $answers
+//        ]);
+
+        foreach ($answers as $key => $answer) {
+
+            var_dump([$questions[$key]['right_answer'], $answer, $questions[$key]['right_answer'] == $answer]);
+
+            if ($questions[$key]['right_answer'] == $answer) {
+                $rightAnswered++;
+            }
+        }
+
+        return $rightAnswered;
     }
 }
