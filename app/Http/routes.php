@@ -37,4 +37,5 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/question/all', 'QuestionController@getAllQuestions');
     Route::post('/question/success', 'QuestionController@success');
     Route::get('/question/success', 'QuestionController@success');
+    Route::get('/question/download', 'QuestionController@downloadCertificate');
 });

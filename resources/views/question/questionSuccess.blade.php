@@ -4,7 +4,7 @@
     <div class="alert alert-info">OK</div>
     <form>
         <div class="form-group">
-            <button type="submit" class="btn btn-lg btn-success center-block">Download Revell Control Zertifikat</button>
+            <a class="btn btn-lg btn-success center-block" href="{{ url('/question/download') }}">Download Revell Control Zertifikat</a>
         </div>
     </form>
 @endsection

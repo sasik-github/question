@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use App\Models\User;
+use App\Pdf\Pdf;
 use Symfony\Component\HttpFoundation\Request;
 
 class QuestionController extends Controller
@@ -66,5 +67,10 @@ class QuestionController extends Controller
         }
 
         return $rightAnswered;
+    }
+
+    public function downloadCertificate(Pdf $pdf, User $user)
+    {
+        return $pdf->create($user->getFirstName() . ' ' . $user->getLastName());
     }
 }
