@@ -30,7 +30,6 @@ class QuestionController extends Controller
     public function success(Request $request, User $user, Question $question)
     {
         $answers = $request->get('answers', []);
-        var_dump($answers);
         $questions = $question->getAll();
         $rightAnsweredCount = $this->checkAnswers($questions, $answers);
 
@@ -60,8 +59,6 @@ class QuestionController extends Controller
 //        ]);
 
         foreach ($answers as $key => $answer) {
-
-            var_dump([$questions[$key]['right_answer'], $answer, $questions[$key]['right_answer'] == $answer]);
 
             if ($questions[$key]['right_answer'] == $answer) {
                 $rightAnswered++;
