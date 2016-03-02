@@ -45,7 +45,7 @@
         <div class="col-sm-offset-2 col-sm-10">
             <div class="checkbox">
                 <label>
-                    <input name="checkbox" type="checkbox"> Hiermit akzeptiere ich die Teilnahmebedingungen für das Revell Control Online Bootcamp.
+                    <input name="checkbox" type="checkbox" checked> Hiermit akzeptiere ich die Teilnahmebedingungen für das Revell Control Online Bootcamp.
                 </label>
             </div>
         </div>

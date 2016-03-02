@@ -149,7 +149,7 @@ var CONTROLS = {
     },
     
     checkAnswer : function () {
-        Quiz.SelectedAnswers[Quiz.current] = $(this).attr('id');
+        Quiz.SelectedAnswers[Quiz.current] = CONTROLS.$answersContainer.find('input:checked').attr('id');
     },
     
     submit : function (event) {
@@ -198,11 +198,18 @@ var QUESTION = {
 
         if (Quiz.SelectedAnswers[Quiz.current]) {
             checkedAnswerId = Quiz.SelectedAnswers[Quiz.current];
+        } else {
+            for (first in question.answers) break;
+            checkedAnswerId = first;
         }
+
         for (answerId in question.answers) {
             var checked = (checkedAnswerId == answerId) ? true : false;
+
             this.$answersContainer.append(ANSWERS.makeHtml(answerId, question.answers[answerId], checked));
         }
+
+        CONTROLS.checkAnswer();
     },
 
     render : function () {
