@@ -8,6 +8,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Middleware\LockDownloadCert;
 use App\Models\Question;
 use App\Models\User;
 use App\Pdf\Pdf;
@@ -38,6 +39,8 @@ class QuestionController extends Controller
 //        $rightAnsweredCount = count($rightAnswered);
 
         if ($totalCount == $rightAnsweredCount) {
+            $user->setSuccess();
+            $user->setQuestionAnswered(true);
             return view('question.questionSuccess');
         } else {
             return view('question.questionFailure',

@@ -140,6 +140,7 @@ var CONTROLS = {
     },
 
     setDisabledButton : function ($button, val) {
+        console.log('setDisabledButton');
         if (val) {
             $button.addClass('disabled');
         } else {
@@ -150,6 +151,18 @@ var CONTROLS = {
     
     checkAnswer : function () {
         Quiz.SelectedAnswers[Quiz.current] = CONTROLS.$answersContainer.find('input:checked').attr('id');
+        CONTROLS.enableNextButton();
+    },
+    
+    enableNextButton : function () {
+        console.log('enableNextButton');
+        if (Quiz.SelectedAnswers[Quiz.current]) {
+            console.log('enable');
+            CONTROLS.setDisabledButton(CONTROLS.$nextButton, false);
+        } else {
+            console.log('disable');
+            CONTROLS.setDisabledButton(CONTROLS.$nextButton, true);
+        }
     },
     
     submit : function (event) {
@@ -160,18 +173,6 @@ var CONTROLS = {
             CONTROLS.makeHiddenInput(index, Quiz.SelectedAnswers[index]);
         }
 
-        //event.preventDefault();
-        //$.ajax({
-        //    type: 'POST',
-        //    url : '/question/success',
-        //    data : {
-        //        '_token' : $('input[name=_token]').val(),
-        //        'selected' : Quiz.SelectedAnswers,
-        //    },
-        //    success : function () {
-        //        location.reload();
-        //    }
-        //});
     },
     
     makeHiddenInput : function (name, value) {
@@ -182,6 +183,7 @@ var CONTROLS = {
 
 CONTROLS.$prevButton.click(CONTROLS.prevQuestion);
 CONTROLS.$nextButton.click(CONTROLS.nextQuestion);
+CONTROLS.$answersContainer.change(CONTROLS.enableNextButton());
 CONTROLS.$submitForm.submit(CONTROLS.submit);
 
 
@@ -198,18 +200,18 @@ var QUESTION = {
 
         if (Quiz.SelectedAnswers[Quiz.current]) {
             checkedAnswerId = Quiz.SelectedAnswers[Quiz.current];
-        } else {
-            for (first in question.answers) break;
-            checkedAnswerId = first;
         }
+        //else {
+        //    //for (first in question.answers) break;
+        //    //checkedAnswerId = first;
+        //}
 
         for (answerId in question.answers) {
             var checked = (checkedAnswerId == answerId) ? true : false;
 
             this.$answersContainer.append(ANSWERS.makeHtml(answerId, question.answers[answerId], checked));
         }
-
-        CONTROLS.checkAnswer();
+        //CONTROLS.checkAnswer();
     },
 
     render : function () {
@@ -227,7 +229,7 @@ var QUESTION = {
         if (Quiz.current <= 0) {
             CONTROLS.setDisabledButton(CONTROLS.$prevButton, true);
             //CONTROLS.setDisabledButton(CONTROLS.$nextButton, false);
-            return;
+            //return;
         }
 
         if (Quiz.current >= Quiz.Questions.length - 1) {
@@ -235,8 +237,10 @@ var QUESTION = {
             CONTROLS.$nextButton.hide();
             CONTROLS.$submitButton.show();
             //CONTROLS.setDisabledButton(CONTROLS.$prevButton, false);
-            return;
+            //return;
         }
+
+        CONTROLS.enableNextButton();
 
     },
 };
@@ -255,7 +259,7 @@ var ANSWERS = {
 
         return html;
     }
-}
+};
 
 function getQuestions() {
     var url = Quiz.QUESTION_URL;

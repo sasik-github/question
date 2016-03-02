@@ -31,11 +31,20 @@ Route::group(['middleware' => 'web'], function () {
 //    Route::auth();
 
     Route::get('/home', 'HomeController@index');
-    Route::post('/home', 'HomeController@login');
 
-    Route::get('/question', 'QuestionController@index');
-    Route::get('/question/all', 'QuestionController@getAllQuestions');
-    Route::post('/question/success', 'QuestionController@success');
-    Route::get('/question/success', 'QuestionController@success');
-    Route::get('/question/download', 'QuestionController@downloadCertificate');
+    Route::group(['middleware' => 'timelock'], function(){
+        Route::post('/home', 'HomeController@login');
+
+        Route::get('/question', 'QuestionController@index');
+        Route::get('/question/all', 'QuestionController@getAllQuestions');
+        Route::post('/question/success', 'QuestionController@success');
+        Route::get('/question/success', 'QuestionController@success');
+
+    });
+
+    Route::group(['middleware' => \App\Http\Middleware\LockDownloadCert::class], function() {
+        Route::get('/question/download', 'QuestionController@downloadCertificate');
+    });
+
+
 });

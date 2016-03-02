@@ -38,6 +38,7 @@ class User
     public function fill($attributes)
     {
         $this->storage->put($attributes);
+        
     }
 
     public function getFirstName()
@@ -63,6 +64,16 @@ class User
     public function setSuccess()
     {
         return $this->_setSuccess(true);
+    }
+
+    public function setQuestionAnswered($value)
+    {
+        $this->storage->put('question_answered', $value);
+    }
+
+    public function getQuestionAnswered()
+    {
+        return $this->storage->get('question_answered', false);
     }
 
     public function getSuccess()
