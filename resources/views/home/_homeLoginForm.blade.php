@@ -1,4 +1,4 @@
-<form class="form-horizontal" method="post" action="{{ action('HomeController@login') }}">
+<form id="login-form" class="form-horizontal" method="post" action="{{ action('HomeController@login') }}">
 
     {{  csrf_field() }}
 
@@ -45,7 +45,7 @@
         <div class="col-sm-offset-2 col-sm-10">
             <div class="checkbox">
                 <label>
-                    <input name="checkbox" type="checkbox" checked> Hiermit akzeptiere ich die Teilnahmebedingungen für das Revell Control Online Bootcamp.
+                    <input id="agree-with-rules-checkbox" name="checkbox" type="checkbox"> Hiermit akzeptiere ich die Teilnahmebedingungen für das Revell Control Online Bootcamp.
                 </label>
             </div>
         </div>
@@ -53,7 +53,8 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-lg btn-primary">Online Bootcamp starten</button>
+            <button id="login-btn" type="submit" class="btn btn-lg btn-primary disabled">Online Bootcamp starten</button>
         </div>
     </div>
 </form>
+<script src="/js/login.js"></script>
