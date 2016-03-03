@@ -7,8 +7,6 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Http\Middleware\LockDownloadCert;
 use App\Models\Question;
 use App\Models\User;
 use App\Pdf\Pdf;

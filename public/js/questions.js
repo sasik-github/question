@@ -37,8 +37,6 @@ var HTML = {
 
     SubmitFormId : '#submit-form',
 
-
-
 };
 
 var ProgressBar = {
@@ -59,12 +57,13 @@ var ProgressBar = {
 
     getProgress : function () {
         return this.progress;
-        return this.$progressBar.width();
+        //return this.$progressBar.width();
     },
 
     setTotalCount : function(count) {
         this.$questionTotalCount.text(count);
         this.setProgress(this.getStep());
+        this.setProgress(0);
     },
     
     getStep : function () {
